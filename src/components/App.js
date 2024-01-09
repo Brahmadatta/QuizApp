@@ -4,11 +4,16 @@ import Loader from "./Loader";
 import Error from "./Error";
 import Main from "./Main";
 import StartScreen from "./StartScreen";
+import Questions from "./Questions";
+import NextButton from "./NextButton";
 
 const initialState = {
   questions: [],
   // 'loading','error','ready','active','finished'
   status: "loading",
+  index: 0,
+  points: 0,
+  answer: null,
 };
 
 function reducer(state, action) {
@@ -17,13 +22,30 @@ function reducer(state, action) {
       return { ...state, questions: action.payload, status: "ready" };
     case "dataFailed":
       return { ...state, status: "error" };
+    case "start":
+      return { ...state, status: "active" };
+    case "newAnswer":
+      const question = state.questions.at(state.index);
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
+      };
+    case "nextQuestion":
+      return { ...state, index: state.index + 1, answer: null };
     default:
       throw new Error("Action Unknown");
   }
 }
 
 export default function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numOfQuestions = questions.length;
 
@@ -40,7 +62,19 @@ export default function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen numOfQuestions={numOfQuestions} />}
+        {status === "ready" && (
+          <StartScreen numOfQuestions={numOfQuestions} dispatch={dispatch} />
+        )}
+        {status === "active" && (
+          <>
+            <Questions
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
+        )}
       </Main>
     </div>
   );

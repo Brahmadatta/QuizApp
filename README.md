@@ -14,3 +14,10 @@
 
 
 <img width="948" alt="Screenshot 2024-01-09 at 6 58 57 PM" src="https://github.com/Brahmadatta/QuizApp/assets/25858541/6afedbb5-41ff-4486-80b1-7e98396d5065">
+
+**Showing the timer as the quiz started**
+<img width="949" alt="Screenshot 2024-01-09 at 10 48 31 PM" src="https://github.com/Brahmadatta/QuizApp/assets/25858541/cc1a534b-74a1-4efc-89b2-e08426be1227">
+
+**Restarting the quiz option once timeout or finished the quiz**
+
+<img width="762" alt="Screenshot 2024-01-09 at 10 49 51 PM" src="https://github.com/Brahmadatta/QuizApp/assets/25858541/0219cd33-bb1b-4b6a-987a-8b2068d028e2">
